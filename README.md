@@ -24,8 +24,8 @@ const main = ({ DOM, Apollo }) => {
   })
 
   const results$ = Apollo.select('allusers')
-    .startWith(xs.of([]))
     .flatten()
+    .startWith([])
 
   const vdom$ = results$
     .map(users =>
@@ -37,6 +37,17 @@ const main = ({ DOM, Apollo }) => {
     Apollo: query$
   }
 }
+
+const networkInterface = createNetworkInterface({
+  uri: process.env.GRAPHQL_ENDPOINT
+})
+
+const client = new ApolloClient({ networkInterface })
+
+run(main, {
+  DOM: makeDOMDriver('#app'),
+  Apollo: makeApolloDriver(client)
+})
 ```
 
 ## Development

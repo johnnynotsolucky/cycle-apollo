@@ -28,8 +28,6 @@ const createApolloStore = client =>
   )
 
 export function makeApolloDriver(client) {
-  const store = createApolloStore(client)
-  client.setStore(store)
 
   return function apolloDriver(input$) {
     const queryResponse$$ = input$
